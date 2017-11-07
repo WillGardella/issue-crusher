@@ -39,7 +39,7 @@ subscription FindReferencedGitHubIssue {
   }
 }`;
 
-const Pattern = /[cC]rush(ed|ing)[\s]*#([0-9]*)/g;
+const Pattern = /[cC]rush(ed|es|ing)[\s]*#([0-9]*)/g;
 
 @EventHandler("Find referenced GitHub issues and PRs in commit message", Subscription)
 export class FindReferencedGitHubIssue implements HandleEvent<Commits> {
@@ -55,7 +55,7 @@ export class FindReferencedGitHubIssue implements HandleEvent<Commits> {
         }
 
         if (referencedIssues.length > 0 && commit.repo && commit.repo.channels) {
-            return ctx.messageClient.addressChannels(`You crushed ${referencedIssues.join(", ")} with commit`+
+            return ctx.messageClient.addressChannels(`You totally crushed ${referencedIssues.join(", ")} with commit`+
                     ` \`${commit.repo.owner}/${commit.repo.name}@${commit.sha.slice(0, 7)}\``,
                     commit.repo.channels.map(c => c.name))
                 .then(() => Success)
